@@ -9,7 +9,8 @@
 --  PROGRAM:        server
 --                ./server.rb 
 --
---  FUNCTIONS:                  Port Knocking, Packet sniffing, libpcap, TCP Socket Server, Shell access
+--  FUNCTIONS:      Port Knocking, Packet sniffing, libpcap, TCP Socket Server
+--                  Shell access, AES256 payload encryption
 --
 --  Ruby Gems required:     ruby-pcap for pcaplet
 --                          https://rubygems.org/gems/ruby-pcap
