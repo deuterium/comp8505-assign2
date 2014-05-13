@@ -7,7 +7,8 @@
 --  PROGRAM:        client
 --                ./client.rb 
 --
---  FUNCTIONS:              Port Knocking, Crafted Packets, Encryption
+--  FUNCTIONS:              Port Knocking, Crafted packets, AES256 payload wncryption
+--                          TCP echo client
 --
 --  Ruby Gems required:     packetfu
 --                          https://rubygems.org/gems/packetfu
