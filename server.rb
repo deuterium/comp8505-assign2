@@ -9,7 +9,7 @@
 --  PROGRAM:        server
 --                ./server.rb 
 --
---  FUNCTIONS:      
+--  FUNCTIONS:                  Port Knocking, Packet sniffing, libpcap, TCP Socket Server, Shell access
 --
 --  Ruby Gems required:     ruby-pcap for pcaplet
 --                          https://rubygems.org/gems/ruby-pcap
@@ -23,6 +23,7 @@
 --  PROGRAMMERS:    Chris Wood - chriswood.ca@gmail.com
 --
 --  NOTES:          problem with client/server socket buffer. sometimes messages get overread.
+--                  TODO: opening firewall rules when knock received and closing after.
 --  
 ---------------------------------------------------------------------------------------
 =end
